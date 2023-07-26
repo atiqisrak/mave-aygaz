@@ -11,14 +11,14 @@ return new class extends Migration
         Schema::create('about_us', function (Blueprint $table) {
             $table->id();
             $table->string('title_bn')->nullable();
-            $table->string('title_en');
+            $table->string('title_en')->default('');
             $table->text('description_bn')->nullable();
-            $table->text('description_en');
+            $table->text('description_en')->default('');
             $table->string('cta_button_text_bn')->nullable();
-            $table->string('cta_button_text_en');
+            $table->string('cta_button_text_en')->default('');
             $table->string('cta_button_url_bn')->nullable();
-            $table->string('cta_button_url_en');
-            $table->string('image');
+            $table->string('cta_button_url_en')->default('');
+            $table->string('image', 255);
             $table->timestamps();
         });
     }

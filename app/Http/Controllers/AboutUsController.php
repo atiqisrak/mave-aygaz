@@ -10,8 +10,16 @@ class AboutUsController extends Controller
     public function index(Request $request)
     {
         $language = $request->header('Accept-Language', 'en'); // Fallback to English if no language specified
-        $aboutUs = AboutUs::select(['id', "title->$language as title", "description->$language as description", "cta_button_text->$language as cta_button_text", "cta_button_url->$language as cta_button_url", "image"])
-            ->first();
+
+        // Get all the fields for the selected language
+        $aboutUs = AboutUs::select([
+            'id',
+            "title_" . $language . " as title",
+            "description_" . $language . " as description",
+            "cta_button_text_" . $language . " as cta_button_text",
+            "cta_button_url_" . $language . " as cta_button_url",
+            'image'
+        ])->first();
 
         return response()->json($aboutUs);
     }
@@ -19,40 +27,29 @@ class AboutUsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|array',
-            'title.en' => 'required|string',
-            'title.bn' => 'required|string',
-            'description' => 'required|array',
-            'description.en' => 'required|string',
-            'description.bn' => 'required|string',
-            'cta_button_text' => 'required|array',
-            'cta_button_text.en' => 'required|string',
-            'cta_button_text.bn' => 'required|string',
-            'cta_button_url' => 'required|array',
-            'cta_button_url.en' => 'required|string',
-            'cta_button_url.bn' => 'required|string',
+            'title_en' => 'required|string',
+            'title_bn' => 'nullable|string',
+            'description_en' => 'required|string',
+            'description_bn' => 'nullable|string',
+            'cta_button_text_en' => 'required|string',
+            'cta_button_text_bn' => 'nullable|string',
+            'cta_button_url_en' => 'required|string',
+            'cta_button_url_bn' => 'nullable|string',
             'image' => 'required|string',
         ]);
+        // return request()->all();
 
-        $aboutUs = new AboutUs;
-        $aboutUs->title = [
-            'en' => $validatedData['title']['en'],
-            'bn' => $validatedData['title']['bn'],
-        ];
-        $aboutUs->description = [
-            'en' => $validatedData['description']['en'],
-            'bn' => $validatedData['description']['bn'],
-        ];
-        $aboutUs->cta_button_text = [
-            'en' => $validatedData['cta_button_text']['en'],
-            'bn' => $validatedData['cta_button_text']['bn'],
-        ];
-        $aboutUs->cta_button_url = [
-            'en' => $validatedData['cta_button_url']['en'],
-            'bn' => $validatedData['cta_button_url']['bn'],
-        ];
-        $aboutUs->image = $validatedData['image'];
-        $aboutUs->save();
+        $aboutUs = AboutUs::create([
+            'title_en' => $validatedData['title_en'],
+            'title_bn' => $validatedData['title_bn'],
+            'description_en' => $validatedData['description_en'],
+            'description_bn' => $validatedData['description_bn'],
+            'cta_button_text_en' => $validatedData['cta_button_text_en'],
+            'cta_button_text_bn' => $validatedData['cta_button_text_bn'],
+            'cta_button_url_en' => $validatedData['cta_button_url_en'],
+            'cta_button_url_bn' => $validatedData['cta_button_url_bn'],
+            'image' => $validatedData['image'],
+        ]);
 
         return response()->json($aboutUs, 201);
     }
@@ -60,40 +57,29 @@ class AboutUsController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'title' => 'required|array',
-            'title.en' => 'required|string',
-            'title.bn' => 'required|string',
-            'description' => 'required|array',
-            'description.en' => 'required|string',
-            'description.bn' => 'required|string',
-            'cta_button_text' => 'required|array',
-            'cta_button_text.en' => 'required|string',
-            'cta_button_text.bn' => 'required|string',
-            'cta_button_url' => 'required|array',
-            'cta_button_url.en' => 'required|string',
-            'cta_button_url.bn' => 'required|string',
+            'title_en' => 'required|string',
+            'title_bn' => 'nullable|string',
+            'description_en' => 'required|string',
+            'description_bn' => 'nullable|string',
+            'cta_button_text_en' => 'required|string',
+            'cta_button_text_bn' => 'nullable|string',
+            'cta_button_url_en' => 'required|string',
+            'cta_button_url_bn' => 'nullable|string',
             'image' => 'required|string',
         ]);
 
         $aboutUs = AboutUs::findOrFail($id);
-        $aboutUs->title = [
-            'en' => $validatedData['title']['en'],
-            'bn' => $validatedData['title']['bn'],
-        ];
-        $aboutUs->description = [
-            'en' => $validatedData['description']['en'],
-            'bn' => $validatedData['description']['bn'],
-        ];
-        $aboutUs->cta_button_text = [
-            'en' => $validatedData['cta_button_text']['en'],
-            'bn' => $validatedData['cta_button_text']['bn'],
-        ];
-        $aboutUs->cta_button_url = [
-            'en' => $validatedData['cta_button_url']['en'],
-            'bn' => $validatedData['cta_button_url']['bn'],
-        ];
-        $aboutUs->image = $validatedData['image'];
-        $aboutUs->save();
+        $aboutUs->update([
+            'title_en' => $validatedData['title_en'],
+            'title_bn' => $validatedData['title_bn'],
+            'description_en' => $validatedData['description_en'],
+            'description_bn' => $validatedData['description_bn'],
+            'cta_button_text_en' => $validatedData['cta_button_text_en'],
+            'cta_button_text_bn' => $validatedData['cta_button_text_bn'],
+            'cta_button_url_en' => $validatedData['cta_button_url_en'],
+            'cta_button_url_bn' => $validatedData['cta_button_url_bn'],
+            'image' => $validatedData['image'],
+        ]);
 
         return response()->json($aboutUs, 200);
     }

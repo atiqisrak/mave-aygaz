@@ -6,6 +6,7 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\PageCardController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CarouselController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ImageLibraryController;
 use App\Http\Controllers\FooterController;
@@ -34,6 +35,11 @@ Route::get('/carousels', [CarouselController::class, 'index']);
 Route::post('/carousels', [CarouselController::class, 'store']);
 Route::put('/carousels/{id}', [CarouselController::class, 'update']);
 Route::delete('/carousels/{id}', [CarouselController::class, 'destroy']);
+
+Route::get('/cards', [CardController::class, 'index']);
+Route::post('/cards', [CardController::class, 'store']);
+Route::put('/cards/{id}', [CardController::class, 'update']);
+Route::delete('/cards/{id}', [CardController::class, 'destroy']);
 
 Route::get('/videos', [VideoController::class, 'index']);
 Route::post('/videos', [VideoController::class, 'store']);

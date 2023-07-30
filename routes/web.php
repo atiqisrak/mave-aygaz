@@ -35,8 +35,18 @@ Route::group(['prefix' => '{language?}'], function () {
 
         // Add more English routes as needed
     });
-});
 
+    // Common routes for both languages
+    Route::get('/carousels', [CarouselController::class, 'index']);
+    Route::post('/carousels', [CarouselController::class, 'store']);
+    Route::put('/carousels/{id}', [CarouselController::class, 'update']);
+    Route::delete('/carousels/{id}', [CarouselController::class, 'destroy']);
+
+    Route::get('/cards', [CardController::class, 'index']);
+    Route::post('/cards', [CardController::class, 'store']);
+    Route::put('/cards/{id}', [CardController::class, 'update']);
+    Route::delete('/cards/{id}', [CardController::class, 'destroy']);
+});
 
 Route::get('/', function () {
     return view('welcome');

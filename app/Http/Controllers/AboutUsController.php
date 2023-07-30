@@ -9,9 +9,8 @@ class AboutUsController extends Controller
 {
     public function index(Request $request)
     {
-        $language = $request->header('Accept-Language', 'en'); // Fallback to English if no language specified
+        $language = $request->header('accept-language', 'en');
 
-        // Get all the fields for the selected language
         $aboutUs = AboutUs::select([
             'id',
             "title_" . $language . " as title",
@@ -37,7 +36,6 @@ class AboutUsController extends Controller
             'cta_button_url_bn' => 'nullable|string',
             'image' => 'required|string',
         ]);
-        // return request()->all();
 
         $aboutUs = AboutUs::create([
             'title_en' => $validatedData['title_en'],

@@ -13,11 +13,11 @@ return new class extends Migration
             $table->string('title_bn')->nullable();
             $table->string('title_en')->default('');
             $table->text('description_bn')->nullable();
-            $table->text('description_en')->default('');
+            $table->text('description_en')->nullable();
             $table->string('cta_button_text_bn')->nullable();
-            $table->string('cta_button_text_en')->default('');
+            $table->string('cta_button_text_en')->nullable();
             $table->string('cta_button_url_bn')->nullable();
-            $table->string('cta_button_url_en')->default('');
+            $table->string('cta_button_url_en')->nullable();
             $table->string('image', 255);
             $table->timestamps();
         });

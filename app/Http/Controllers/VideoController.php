@@ -16,13 +16,10 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|array',
-            'title.en' => 'required|string',
-            'title.bn' => 'required|string',
-            'description' => 'required|array',
-            'description.en' => 'required|string',
-            'description.bn' => 'required|string',
+            'title' => 'nullable|string',
             'video_url' => 'required|string',
+            'video_thumbnail' => 'nullable|string',
+            'status' => 'required|boolean',
         ]);
 
         $video = Video::create($validatedData);
@@ -32,13 +29,10 @@ class VideoController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'title' => 'required|array',
-            'title.en' => 'required|string',
-            'title.bn' => 'required|string',
-            'description' => 'required|array',
-            'description.en' => 'required|string',
-            'description.bn' => 'required|string',
+            'title' => 'nullable|string',
             'video_url' => 'required|string',
+            'video_thumbnail' => 'nullable|string',
+            'status' => 'required|boolean',
         ]);
 
         $video = Video::findOrFail($id);

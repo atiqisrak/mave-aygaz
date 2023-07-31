@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
-    protected $fillable = ['title', 'description', 'video_url'];
+    protected $fillable = ['title', 'video_url', 'video_thumbnail', 'status'];
 
     protected $casts = [
-        'title' => 'json',
-        'description' => 'json',
+        'status' => 'boolean',
     ];
 }

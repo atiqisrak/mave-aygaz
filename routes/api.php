@@ -51,7 +51,7 @@ Route::post('/image-library', [ImageLibraryController::class, 'store']);
 Route::put('/image-library/{id}', [ImageLibraryController::class, 'update']);
 Route::delete('/image-library/{id}', [ImageLibraryController::class, 'destroy']);
 
-Route::get('/footer', [FooterController::class, 'index']);
-Route::post('/footer', [FooterController::class, 'store']);
-Route::put('/footer/{id}', [FooterController::class, 'update']);
-Route::delete('/footer/{id}', [FooterController::class, 'destroy']);
+Route::get('/footers', [FooterController::class, 'index']);
+Route::post('/footers', [FooterController::class, 'store']);
+Route::put('/footers/{id}', [FooterController::class, 'update']);
+Route::delete('/footers/{id}', [FooterController::class, 'destroy']);

@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ImageLibrary extends Model
+class BulkUploadedImage extends Model
 {
-    protected $fillable = ['status', 'image'];
+    use HasFactory;
 
-    protected $table = 'image_library';
+    protected $fillable = ['image'];
 }

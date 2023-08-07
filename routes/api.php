@@ -47,7 +47,9 @@ Route::put('/videos/{id}', [VideoController::class, 'update']);
 Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
 
 Route::get('/image-library', [ImageLibraryController::class, 'index']);
-Route::post('/image-library', [ImageLibraryController::class, 'store']);
+Route::post('/image-library/upload', [ImageLibraryController::class, 'store']);
+Route::post('/image-library/bulk-upload', [ImageLibraryController::class, 'bulkUpload']);
+Route::delete('/image-library/bulk-delete', [ImageLibraryController::class, 'bulkDelete']);
 Route::put('/image-library/{id}', [ImageLibraryController::class, 'update']);
 Route::delete('/image-library/{id}', [ImageLibraryController::class, 'destroy']);
 
@@ -55,3 +57,16 @@ Route::get('/footers', [FooterController::class, 'index']);
 Route::post('/footers', [FooterController::class, 'store']);
 Route::put('/footers/{id}', [FooterController::class, 'update']);
 Route::delete('/footers/{id}', [FooterController::class, 'destroy']);
+
+
+// Cylinder Gas Page section APIs
+
+// Template 1
+    // Title
+    // Description
+    // Image/Video
+
+// Template 2
+    // Title
+    // Description
+    

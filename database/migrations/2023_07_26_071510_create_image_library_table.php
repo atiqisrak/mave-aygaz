@@ -10,16 +10,12 @@ return new class extends Migration
     {
         Schema::create('image_library', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('image'); // URL to the library image
+            $table->boolean('status')->default(1);
+            $table->text('image');
             $table->timestamps();
         });
     }
 
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('image_library');

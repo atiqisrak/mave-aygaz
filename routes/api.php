@@ -12,6 +12,7 @@ use App\Http\Controllers\ImageLibraryController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AboutCylinderGasController;
+use App\Http\Controllers\AboutPageController;
 
 Route::get('/navbar', [NavbarController::class, 'index']);
 Route::post('/navbar', [NavbarController::class, 'store']);
@@ -74,3 +75,7 @@ Route::post('/about-cylinder-gas', [AboutCylinderGasController::class, 'store'])
 Route::put('/about-cylinder-gas/{id}', [AboutCylinderGasController::class, 'update']);
 Route::delete('/about-cylinder-gas/{id}', [AboutCylinderGasController::class, 'destroy']);
 
+Route::get('/about-pages', [AboutPageController::class, 'index']);
+Route::post('/about-pages', [AboutPageController::class, 'store']);
+Route::put('/about-pages/{id}', [AboutPageController::class, 'update']);
+Route::delete('/about-pages/{id}', [AboutPageController::class, 'destroy']);

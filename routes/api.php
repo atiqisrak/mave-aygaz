@@ -10,6 +10,8 @@ use App\Http\Controllers\CardController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ImageLibraryController;
 use App\Http\Controllers\FooterController;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\AboutCylinderGasController;
 
 Route::get('/navbar', [NavbarController::class, 'index']);
 Route::post('/navbar', [NavbarController::class, 'store']);
@@ -54,19 +56,21 @@ Route::put('/image-library/{id}', [ImageLibraryController::class, 'update']);
 Route::delete('/image-library/{id}', [ImageLibraryController::class, 'destroy']);
 
 Route::get('/footers', [FooterController::class, 'index']);
+// Route::get('/footers', function () {
+//     return "Hello footer";
+// });
 Route::post('/footers', [FooterController::class, 'store']);
 Route::put('/footers/{id}', [FooterController::class, 'update']);
 Route::delete('/footers/{id}', [FooterController::class, 'destroy']);
 
+Route::get('/forms', [FormController::class, 'index']);
+Route::post('/forms', [FormController::class, 'store']);
+Route::get('/forms/{id}', [FormController::class, 'show']);
+Route::put('/forms/{id}', [FormController::class, 'update']);
+Route::delete('/forms/{id}', [FormController::class, 'destroy']);
 
-// Cylinder Gas Page section APIs
+Route::get('/about-cylinder-gas', [AboutCylinderGasController::class, 'index']);
+Route::post('/about-cylinder-gas', [AboutCylinderGasController::class, 'store']);
+Route::put('/about-cylinder-gas/{id}', [AboutCylinderGasController::class, 'update']);
+Route::delete('/about-cylinder-gas/{id}', [AboutCylinderGasController::class, 'destroy']);
 
-// Template 1
-    // Title
-    // Description
-    // Image/Video
-
-// Template 2
-    // Title
-    // Description
-    

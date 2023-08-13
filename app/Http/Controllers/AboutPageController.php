@@ -21,6 +21,7 @@ class AboutPageController extends Controller
             'card_id_array' => 'nullable|array',
             'title' => 'nullable|string',
             'card_id_array_2' => 'nullable|array',
+            'status' => 'nullable|boolean',
         ]);
 
         $aboutPage = AboutPage::create($validatedData);
@@ -38,6 +39,7 @@ class AboutPageController extends Controller
             'card_id_array' => 'nullable|array',
             'title' => 'nullable|string',
             'card_id_array_2' => 'nullable|array',
+            'status' => 'nullable|boolean',
         ]);
 
         $aboutPage->update($validatedData);

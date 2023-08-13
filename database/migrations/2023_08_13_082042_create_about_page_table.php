@@ -15,6 +15,8 @@ class CreateAboutPageTable extends Migration
             $table->json('card_id_array')->nullable();
             $table->string('title')->nullable();
             $table->json('card_id_array_2')->nullable();
+            
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

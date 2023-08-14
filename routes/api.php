@@ -14,6 +14,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\AboutCylinderGasController;
 use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\AutogasPageController;
+use App\Http\Controllers\BulkGasPageController;
 
 Route::get('/navbar', [NavbarController::class, 'index']);
 Route::post('/navbar', [NavbarController::class, 'store']);
@@ -85,3 +86,8 @@ Route::get('/autogas', [AutogasPageController::class, 'index']);
 Route::post('/autogas', [AutogasPageController::class, 'store']);
 Route::put('/autogas/{id}', [AutogasPageController::class, 'update']);
 Route::delete('/autogas/{id}', [AutogasPageController::class, 'destroy']);
+
+Route::get('/bulkgas', [BulkGasPageController::class, 'index']);
+Route::post('/bulkgas', [BulkGasPageController::class, 'store']);
+Route::put('/bulkgas/{id}', [BulkGasPageController::class, 'update']);
+Route::delete('/bulkgas/{id}', [BulkGasPageController::class, 'destroy']);

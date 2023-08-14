@@ -6,16 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Form extends Model
 {
+    public function bulkGasPages()
+{
+    return $this->hasMany(BulkGasPage::class);
+}
+
     protected $fillable = [
-        'title',
-        'description',
+        'title_en',
+        'title_bn',
+        'description_bn',
+        'description_en',
         'options',
         'fields',
         'submit_direction',
-    ];
-
-    protected $casts = [
-        'options' => 'json',
-        'fields' => 'json',
+        'status',
     ];
 }

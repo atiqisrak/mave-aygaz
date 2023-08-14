@@ -25,6 +25,7 @@ class BulkGasPageController extends Controller
             'section4_cards' => 'required|array',
             'title5' => 'required|string',
             'section5_cards' => 'required|array',
+            'form_id' => 'required|exists:forms,id',
             'status' => 'boolean',
         ]);
 
@@ -54,6 +55,7 @@ class BulkGasPageController extends Controller
             'section4_cards' => 'required|array',
             'title5' => 'required|string',
             'section5_cards' => 'required|array',
+            'form_id' => 'required|exists:forms,id',
             'status' => 'boolean',
         ]);
 

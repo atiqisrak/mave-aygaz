@@ -9,11 +9,14 @@ class CreateFormsTable extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->json('options')->nullable(); // Store additional form options
-            $table->json('fields'); // Store form fields dynamically
+            $table->string('title_en');
+            $table->string('title_bn')->nullable();
+            $table->text('description_bn')->nullable();
+            $table->text('description_en');
+            $table->json('options')->nullable();
+            $table->json('fields');
             $table->string('submit_direction')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

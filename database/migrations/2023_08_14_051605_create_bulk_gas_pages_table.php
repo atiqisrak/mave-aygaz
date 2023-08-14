@@ -20,6 +20,7 @@ return new class extends Migration
             $table->json('section4_cards');
             $table->string('title5');
             $table->json('section5_cards');
+            $table->unsignedBigInteger('form_id')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

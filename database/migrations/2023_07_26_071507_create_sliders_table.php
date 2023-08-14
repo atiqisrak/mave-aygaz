@@ -11,23 +11,14 @@ class CreateSlidersTable extends Migration
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->unsignedBigInteger('media_ids');
+            $table->tinyInteger('status')->default(false);
             $table->timestamps();
-        });
-
-        Schema::create('slider_images', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('slider_id');
-            $table->string('image');
-            $table->timestamps();
-
-            $table->foreign('slider_id')->references('id')->on('sliders')->onDelete('cascade');
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('slider_images');
         Schema::dropIfExists('sliders');
     }
 }

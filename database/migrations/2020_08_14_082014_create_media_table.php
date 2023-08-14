@@ -1,22 +1,23 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBulkUploadedImagesTable extends Migration
+class CreateMediaTable extends Migration
 {
     public function up()
     {
-        Schema::create('bulk_uploaded_images', function (Blueprint $table) {
+        Schema::create('media', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
+            $table->string('filename');
+            $table->string('mime_type');
+            $table->string('url');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('bulk_uploaded_images');
+        Schema::dropIfExists('media');
     }
 }

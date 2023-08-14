@@ -6,18 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        Schema::create('image_library', function (Blueprint $table) {
+        Schema::create('homepage', function (Blueprint $table) {
             $table->id();
-            $table->boolean('status')->default(1);
-            $table->text('image');
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('image_library');
+        Schema::dropIfExists('homepage');
     }
 };

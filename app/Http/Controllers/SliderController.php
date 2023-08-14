@@ -4,78 +4,63 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Slider;
-use App\Models\SliderImage;
-use Illuminate\Validation\ValidationException;
 
 class SliderController extends Controller
 {
     public function index()
     {
-        $sliders = Slider::with('images')->get();
+        $sliders = Slider::all();
         return response()->json($sliders);
+    }
+
+    public function show($id)
+    {
+        $slider = Slider::findOrFail($id);
+        return response()->json($slider);
     }
 
     public function store(Request $request)
     {
-        try {
-            $validatedData = $request->validate([
-                'status' => 'required|boolean',
-                'title' => 'nullable|string',
-                'images' => 'required|array',
-            ]);
-        } catch (ValidationException $e) {
-            return response()->json(['error' => $e->errors()], 422);
-        }
-
-        $slider = Slider::create([
-            'status' => $validatedData['status'],
-            'title' => $validatedData['title'],
+        $validatedData = $request->validate([
+            'title' => 'nullable|string',
+            'media_ids' => 'required|array',
+            'media_ids.*' => 'exists:media,id',
+            'status' => 'boolean',
         ]);
 
-        $images = $validatedData['images'];
-
-        foreach ($images as $image) {
-            $sliderImage = new SliderImage;
-            $sliderImage->image = $image;
-            $sliderImage->slider_id = $slider->id;
-
-            $sliderImage->save();
-        }
+        $slider = Slider::create([
+            'title' => $validatedData['title'],
+            'media_ids' => $validatedData['media_ids'],
+            'status' => $validatedData['status'],
+        ]);
 
         return response()->json($slider, 201);
     }
 
     public function update(Request $request, $id)
     {
+        $slider = Slider::findOrFail($id);
+
         $validatedData = $request->validate([
-            'status' => 'required|boolean',
-            'images.*' => 'required|string',
+            'title' => 'nullable|string',
+            'media_ids' => 'required|array',
+            'media_ids.*' => 'exists:media,id',
+            'status' => 'boolean',
         ]);
 
-        $slider = Slider::findOrFail($id);
         $slider->update([
+            'title' => $validatedData['title'],
+            'media_ids' => $validatedData['media_ids'],
             'status' => $validatedData['status'],
         ]);
 
-        // Delete existing images
-        $slider->images()->delete();
-
-        // Add new images
-        foreach ($validatedData['images'] as $image) {
-            SliderImage::create([
-                'slider_id' => $slider->id,
-                'image' => $image,
-            ]);
-        }
-
-        return response()->json($slider, 200);
+        return response()->json($slider);
     }
 
     public function destroy($id)
     {
         $slider = Slider::findOrFail($id);
-        $slider->images()->delete();
         $slider->delete();
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Slider deleted successfully']);
     }
 }

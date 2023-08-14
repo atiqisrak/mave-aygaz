@@ -16,14 +16,14 @@ class PageCardController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'image' => 'required|string',
-            'title' => 'required|array',
-            'title.en' => 'required|string',
-            'title.bn' => 'required|string',
-            'description' => 'required|array',
-            'description.en' => 'required|string',
-            'description.bn' => 'required|string',
+            'page_name' => 'required|string',
+            'media_id' => 'required|exists:media,id',
+            'title_en' => 'required|string',
+            'title_bn' => 'required|string',
+            'description_en' => 'required|string',
+            'description_bn' => 'required|string',
             'link_url' => 'required|string',
+            'status' => 'required|boolean',
         ]);
 
         $pageCard = PageCard::create($validatedData);
@@ -33,14 +33,14 @@ class PageCardController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'image' => 'required|string',
-            'title' => 'required|array',
-            'title.en' => 'required|string',
-            'title.bn' => 'required|string',
-            'description' => 'required|array',
-            'description.en' => 'required|string',
-            'description.bn' => 'required|string',
+            'page_name' => 'required|string',
+            'media_id' => 'required|exists:media,id',
+            'title_en' => 'required|string',
+            'title_bn' => 'required|string',
+            'description_en' => 'required|string',
+            'description_bn' => 'required|string',
             'link_url' => 'required|string',
+            'status' => 'required|boolean',
         ]);
 
         $pageCard = PageCard::findOrFail($id);

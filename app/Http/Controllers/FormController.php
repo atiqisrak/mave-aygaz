@@ -17,11 +17,14 @@ class FormController extends Controller
     {
         try{
             $validatedData = $request->validate([
-                'title' => 'required|string',
-                'description' => 'nullable|string',
-                'options' => 'nullable|json',
-                'fields' => 'required|array',
-                'submit_direction' => 'required|string',
+        'title_en' => 'required|string',
+        'title_bn' => 'nullable|string',
+        'description_bn' => 'nullable|string',
+        'description_en' => 'nullable|string',
+        'options' => 'nullable|json',
+        'fields' => 'required|array',
+        'submit_direction' => 'required|string',
+        'status' => 'required|boolean',
             ]);
     
             $form = Form::create($validatedData);
@@ -39,11 +42,14 @@ class FormController extends Controller
         $form = Form::findOrFail($id);
 
         $validatedData = $request->validate([
-            'title' => 'required|string',
-            'description' => 'nullable|string',
-            'options' => 'nullable|json',
-            'fields' => 'required|array',
-            'submit_direction' => 'required|string',
+            'title_en' => 'required|string',
+        'title_bn' => 'nullable|string',
+        'description_bn' => 'nullable|string',
+        'description_en' => 'nullable|string',
+        'options' => 'nullable|json',
+        'fields' => 'required|array',
+        'submit_direction' => 'required|string',
+        'status' => 'required|boolean',
         ]);
 
         $form->update($validatedData);

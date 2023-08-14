@@ -9,10 +9,6 @@ class Slider extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['status', 'title'];
+    protected $fillable = ['title', 'media_ids', 'status'];
 
-    public function images()
-    {
-        return $this->hasMany(SliderImage::class);
-    }
 }

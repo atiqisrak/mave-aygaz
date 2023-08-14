@@ -13,6 +13,7 @@ use App\Http\Controllers\FooterController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AboutCylinderGasController;
 use App\Http\Controllers\AboutPageController;
+use App\Http\Controllers\AutogasPageController;
 
 Route::get('/navbar', [NavbarController::class, 'index']);
 Route::post('/navbar', [NavbarController::class, 'store']);
@@ -79,3 +80,8 @@ Route::get('/about-pages', [AboutPageController::class, 'index']);
 Route::post('/about-pages', [AboutPageController::class, 'store']);
 Route::put('/about-pages/{id}', [AboutPageController::class, 'update']);
 Route::delete('/about-pages/{id}', [AboutPageController::class, 'destroy']);
+
+Route::get('/autogas', [AutogasPageController::class, 'index']);
+Route::post('/autogas', [AutogasPageController::class, 'store']);
+Route::put('/autogas/{id}', [AutogasPageController::class, 'update']);
+Route::delete('/autogas/{id}', [AutogasPageController::class, 'destroy']);

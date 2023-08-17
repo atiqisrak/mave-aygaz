@@ -45,6 +45,16 @@ Route::post('/media', [MediaController::class, 'store']);
 Route::put('/media/{id}', [MediaController::class, 'update']);
 Route::delete('/media/{id}', [MediaController::class, 'destroy']);
 
+// Image
+// Route::controller(ImageController::class)->group(function(){
+//     Route::get('image-upload', 'index');
+//     Route::post('image-upload', 'store')->name('image.store');
+// });
+
+// Route::get('/image-upload', [ImageController::class, 'index']);
+// Route::post('/image-upload', [ImageController::class, 'store'])->name('image.store');
+// Route::put('/image-upload/{id}', [ImageController::class, 'update']);
+// Route::delete('/image-upload/{id}', [ImageController::class, 'destroy']);
 
 // Page routes
 // About us

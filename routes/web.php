@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ImageController;
 
 Route::group(['prefix' => '{language?}'], function () {
     // Common routes for both languages
@@ -51,3 +52,15 @@ Route::group(['prefix' => '{language?}'], function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// Route::controller(ImageController::class)->group(function(){
+//     Route::get('image-upload', 'index');
+//     Route::post('image-upload', 'store')->name('image.store');
+// });
+// Route::controller(ImageController::class)->group(function(){
+//     Route::get('image-upload', 'index');
+//     Route::post('image-upload', 'store')->name('image.store');
+// });
+Route::get('/image-upload', [ImageController::class, 'showImageUploadForm'])->name('image.upload');
+Route::post('/image-upload', [ImageController::class, 'store'])->name('image.store');

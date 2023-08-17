@@ -64,3 +64,6 @@ Route::get('/', function () {
 // });
 Route::get('/image-upload', [ImageController::class, 'showImageUploadForm'])->name('image.upload');
 Route::post('/image-upload', [ImageController::class, 'store'])->name('image.store');
+
+Route::get('/media', [MediaController::class, 'showMediaUploadForm'])->name('media.upload');
+Route::post('/media', [MediaController::class, 'store'])->name('media.store');

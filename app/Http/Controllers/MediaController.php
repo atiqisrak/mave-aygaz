@@ -1,85 +1,85 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Media;
 use Illuminate\Support\Str;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Http\RedirectResponse;
+use App\Models\Media;
+use App\Models\Titlegen;
 
 class MediaController extends Controller
 {
-    // public function index()
-    // {
-    //     $media = Media::all();
-    //     return response()->json($media);
-    // }
+    //index
+
     public function index()
+    {
+        $media = Media::all();
+        return response()->json($media);
+    }
+
+    // show
+
+    public function show($id)
+    {
+        $media = Media::findOrFail($id);
+        return response()->json($media);
+    }
+    public function showMediaUploadForm()
 {
-    $media = Media::with('media')->get();
-    return response()->json($media);
+    $media = Media::all(); // Retrieve all media to display
+
+    return view('mediaUpload', compact('media'));
 }
 
+    // store
 
     public function store(Request $request)
     {
-        $maxFileSize = env('MAX_FILE_SIZE', 1024000);
-
-        $validatedData = $request->validate([
-            'file' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,pdf|max:'.config('medialibrary.max_file_size'),
+        $request->validate([
+            'media' => 'required|image|mimes:jpeg,png,jpg,gif,svg,pdf,mp4,mkv|max:204800',
         ]);
 
-        // $file = $validatedData['file'];
-        // $extension = $file->getClientOriginalExtension();
-        // $randomCharacters = Str::random(5);
-        // $filename = "mave_aygaz_" . $randomCharacters . "." . $extension;
+        // Generate a title based on the original file name
+        $originalName = $request->media->getClientOriginalName();
+        $title = pathinfo($originalName, PATHINFO_FILENAME);
+        $generatedTitle = "mave_aygaz_" . Str::random(6);
 
-        // $url = $file->storeAs('media', $filename, 'public');
+        // Rename the image
+        $mediaName = $generatedTitle . '.' . $request->media->extension();
 
-        // $media = Media::create([
-        //     'filename' => $filename,
-        //     'mime_type' => $file->getMimeType(),
-        //     'url' => $url,
-        // ]);
-        $media = Media::create([]);
+        // Move the uploaded file to the public/images directory
+        $request->media->move(public_path('media'), $mediaName);
 
-        $media->addMedia($validatedData['file'])
-            ->toMediaCollection('uploads');
-        return response()->json($media, 201);
+        // Save the new title and image path to the database
+        $media = Media::create([
+            'file_name' => $generatedTitle,
+            'file_path' => 'media/' . $mediaName,
+        ]);
+
+        // return response()->json($media, 201);
+        return redirect()->route('media.upload')->with('success', 'Media updated successfully. Media name: '.$mediaName)->with('media', $mediaName);
     }
+
+    // update
 
     public function update(Request $request, $id)
     {
         $media = Media::findOrFail($id);
+        $media->update($request->all());
 
-        $validatedData = $request->validate([
-            'file' => 'nullable|file|mimes:jpeg,png,jpg,gif,mp4,pdf',
-        ]);
+        return response()->json($media, 200);
 
-        // if ($request->hasFile('file')) {
-        //     $file = $validatedData['file'];
-        //     $extension = $file->getClientOriginalExtension();
-        //     $randomCharacters = Str::random(5);
-        //     $filename = "mave_aygaz_" . $randomCharacters . "." . $extension;
-
-        //     $url = $file->storeAs('media', $filename, 'public');
-            
-        //     $media->update([
-        //         'filename' => $filename,
-        //         'mime_type' => $file->getMimeType(),
-        //         'url' => $url,
-        //     ]);
-        // }
-        if ($request->hasFile('file')) {
-            $media->addMedia($validatedData['file'])
-                ->toMediaCollection('uploads');
-        }
-
-        return response()->json($media);
     }
+
+    // destroy
 
     public function destroy($id)
     {
         $media = Media::findOrFail($id);
         $media->delete();
-        return response()->json(['message' => 'Media file deleted successfully']);
+
+        return response()->json(['message' => 'Media deleted successfully']);
     }
 }

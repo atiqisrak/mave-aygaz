@@ -40,10 +40,10 @@ Route::put('/forms/{id}', [FormController::class, 'update']);
 Route::delete('/forms/{id}', [FormController::class, 'destroy']);
 
 // Media
-Route::get('/media', [MediaController::class, 'index']);
-Route::post('/media', [MediaController::class, 'store']);
-Route::put('/media/{id}', [MediaController::class, 'update']);
-Route::delete('/media/{id}', [MediaController::class, 'destroy']);
+// Route::get('/media', [MediaController::class, 'index']);
+// Route::post('/media', [MediaController::class, 'store']);
+// Route::put('/media/{id}', [MediaController::class, 'update']);
+// Route::delete('/media/{id}', [MediaController::class, 'destroy']);
 
 // Image
 // Route::controller(ImageController::class)->group(function(){

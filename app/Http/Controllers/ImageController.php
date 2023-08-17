@@ -55,7 +55,9 @@ class ImageController extends Controller
             'image_path' => 'images/' . $imageName,
         ]);
 
-        return response()->json($image, 201);
+        // return response()->json($image, 201);
+        return redirect()->route('image.upload')->with('success', 'Image updated successfully. Image name: '.$imageName)->with('image', $imageName);
+
     }
 
     public function update(Request $request, $id)
@@ -84,8 +86,7 @@ class ImageController extends Controller
                 'image_path' => 'images/' . $imageName,
             ]);
         }
-
-        return response()->json($image);
+        return redirect()->route('image.upload')->with('success', 'Image updated successfully')->with('image', $imageName);
     }
 
     public function destroy($id)

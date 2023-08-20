@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Slider;
+use App\Models\Media;
 
 class SliderController extends Controller
 {
@@ -22,14 +23,15 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'nullable|string',
-            'media_ids' => 'required|array',
-            'media_ids.*' => 'exists:media,id',
+            'title_en' => 'nullable|string',
+            'title_bn' => 'nullable|string',
+            'media_ids' => 'required|array|exists:media,id',
             'status' => 'boolean',
         ]);
 
         $slider = Slider::create([
-            'title' => $validatedData['title'],
+            'title_en' => $validatedData['title_en'],
+            'title_bn' => $validatedData['title_bn'],
             'media_ids' => $validatedData['media_ids'],
             'status' => $validatedData['status'],
         ]);
@@ -42,14 +44,15 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
 
         $validatedData = $request->validate([
-            'title' => 'nullable|string',
-            'media_ids' => 'required|array',
-            'media_ids.*' => 'exists:media,id',
+            'title_en' => 'nullable|string',
+            'title_bn' => 'nullable|string',
+            'media_ids' => 'required|array|exists:media,id',
             'status' => 'boolean',
         ]);
 
         $slider->update([
-            'title' => $validatedData['title'],
+            'title_en' => $validatedData['title_en'],
+            'title_bn' => $validatedData['title_bn'],
             'media_ids' => $validatedData['media_ids'],
             'status' => $validatedData['status'],
         ]);

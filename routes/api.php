@@ -10,10 +10,10 @@ use App\Http\Controllers\MediaController;
 
 // Component routes
 // Navbar
-Route::get('/navbar', [NavbarController::class, 'index']);
-Route::post('/navbar', [NavbarController::class, 'store']);
-Route::put('/navbar/{id}', [NavbarController::class, 'update']);
-Route::delete('/navbar/{id}', [NavbarController::class, 'destroy']);
+Route::get('/navbars', [NavbarController::class, 'index']);
+Route::post('/navbars', [NavbarController::class, 'store']);
+Route::put('/navbars/{id}', [NavbarController::class, 'update']);
+Route::delete('/navbars/{id}', [NavbarController::class, 'destroy']);
 // Footer
 Route::get('/footers', [FooterController::class, 'index']);
 Route::post('/footers', [FooterController::class, 'store']);
@@ -40,7 +40,7 @@ Route::put('/forms/{id}', [FormController::class, 'update']);
 Route::delete('/forms/{id}', [FormController::class, 'destroy']);
 
 // Media
-// Route::get('/media', [MediaController::class, 'index']);
+Route::get('/media', [MediaController::class, 'index']);
 // Route::post('/media', [MediaController::class, 'store']);
 // Route::put('/media/{id}', [MediaController::class, 'update']);
 // Route::delete('/media/{id}', [MediaController::class, 'destroy']);

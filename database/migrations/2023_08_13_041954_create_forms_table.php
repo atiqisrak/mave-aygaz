@@ -10,13 +10,13 @@ class CreateFormsTable extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
             $table->string('title_en');
-            $table->string('title_bn')->nullable();
-            $table->text('description_bn')->nullable();
+            $table->string('title_bn');
             $table->text('description_en');
+            $table->text('description_bn');
             $table->json('options')->nullable();
             $table->json('fields');
             $table->string('submit_direction')->nullable();
-            $table->boolean('status')->default(true);
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

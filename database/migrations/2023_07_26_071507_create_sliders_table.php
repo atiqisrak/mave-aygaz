@@ -10,10 +10,14 @@ class CreateSlidersTable extends Migration
     {
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
+            $table->string('title_en')->nullable();
+            $table->string('title_bn')->nullable();
             $table->unsignedBigInteger('media_ids');
             $table->tinyInteger('status')->default(false);
             $table->timestamps();
+
+            $table->foreign('media_ids')->references('id')->on('media');
+
         });
     }
 

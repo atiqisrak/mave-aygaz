@@ -8,6 +8,8 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Media;
 use App\Models\Titlegen;
+// mimetype
+
 
 class MediaController extends Controller
 {
@@ -26,6 +28,7 @@ class MediaController extends Controller
         $media = Media::findOrFail($id);
         return response()->json($media);
     }
+
     public function showMediaUploadForm()
 {
     $media = Media::all(); // Retrieve all media to display
@@ -37,8 +40,17 @@ class MediaController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->method() !== 'POST') {
+            return redirect()->back();
+        }
+        
+        if (! $request->hasFile('media')) {
+            return redirect()->back()->with('error', 'Please select a file to upload.');
+        }
+
+        
         $request->validate([
-            'media' => 'required|image|mimes:jpeg,png,jpg,gif,svg,pdf,mp4,mkv|max:204800',
+            'media' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf,mp4,mkv|max:204800',
         ]);
 
         // Generate a title based on the original file name
@@ -55,6 +67,7 @@ class MediaController extends Controller
         // Save the new title and image path to the database
         $media = Media::create([
             'file_name' => $generatedTitle,
+            'file_type' => $request->media->getClientMimeType(),
             'file_path' => 'media/' . $mediaName,
         ]);
 
@@ -73,7 +86,7 @@ class MediaController extends Controller
 
     }
 
-    // destroy
+    // delete
 
     public function destroy($id)
     {

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MediaController;
 
 Route::group(['prefix' => '{language?}'], function () {
     // Common routes for both languages
@@ -53,17 +54,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-// Route::controller(ImageController::class)->group(function(){
-//     Route::get('image-upload', 'index');
-//     Route::post('image-upload', 'store')->name('image.store');
-// });
-// Route::controller(ImageController::class)->group(function(){
-//     Route::get('image-upload', 'index');
-//     Route::post('image-upload', 'store')->name('image.store');
-// });
 Route::get('/image-upload', [ImageController::class, 'showImageUploadForm'])->name('image.upload');
 Route::post('/image-upload', [ImageController::class, 'store'])->name('image.store');
 
-Route::get('/media', [MediaController::class, 'showMediaUploadForm'])->name('media.upload');
-Route::post('/media', [MediaController::class, 'store'])->name('media.store');
+Route::get('/mediaUpload', [MediaController::class, 'showMediaUploadForm'])->name('media.upload');
+Route::post('/mediaUpload', [MediaController::class, 'store'])->name('media.store');

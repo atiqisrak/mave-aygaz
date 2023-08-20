@@ -4,42 +4,28 @@
     <title>Mave Aygaz</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .media-upload-container {
-            width: 500px;
+        body {
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 50%;
             margin: 0 auto;
         }
-
-        .media-upload-heading {
-            text-align: center;
-            font-size: 20px;
-            margin-bottom: 20px;
+        .panel-primary {
+            border-color: orange;
         }
-
-        .media-upload-input {
-            width: 100%;
-            height: 200px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 10px;
+        .panel-heading {
+            color: orange;
         }
-
-        .media-upload-button {
-            width: 100%;
-            height: 40px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .form-control {
+            border-color: orange;
         }
-
-        .media-upload-success {
-            color: green;
-            font-weight: bold;
+        .btn-success {
+            background-color: orange;
+            border-color: orange;
         }
-
-        .media-upload-filename {
-            font-size: 14px;
+        img {
+            width: 300px;
         }
     </style>
 </head>
@@ -47,25 +33,67 @@
 <body>
 <div class="container">
        
-    <div class="media-upload-container">
+    <div class="panel panel-primary">
   
-      <h2 class="media-upload-heading">Upload your file</h2>
- 
-      <div class="media-upload-input">
-        <input type="file" name="file" />
+      <div class="panel-heading">
+        <h2>Upload Media</h2>
       </div>
  
-      <button class="media-upload-button">Upload</button>
-      
-      @if ($message = Session::get('success'))
-        <div class="alert alert-success media-upload-success">
-            <strong>{{ $message }}</strong>
+      <div class="panel-body">
+       
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert" onclick="window.location.reload()">×</button>
+                <strong>{{ $message }}</strong>
         </div>
-        <p class="media-upload-filename">Filename: {{ Session::get('filename') }}</p>
-      @endif
+        @endif
       
+        <form action="{{ route('media.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+  
+            <div class="mb-3">
+                <label class="form-label" for="media">Media:</label>
+                <input 
+                    type="file" 
+                    name="media" 
+                    id="media"
+                    class="form-control @error('media') is-invalid @enderror">
+  
+                @error('media')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+   
+            <div class="mb-3">
+                <!-- <img id="previewImage" src="" alt="Preview Image"> -->
+                <img src="{{ asset('media/'.Session::get('media')) }}" width="300px">
+
+            </div>
+   
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Upload</button>
+            </div>
+       
+        </form>
+      
+      </div>
     </div>
 </div>
+
+@section('scripts')
+<script>
+var inputMedia = document.getElementById("media");
+var previewImage = document.getElementById("previewImage");
+
+inputMedia.addEventListener("change", function() {
+    var reader = new FileReader();
+    reader.onload = function() {
+        previewImage.src = reader.result;
+    };
+    reader.readAsDataURL(inputMedia.files[0]);
+});
+</script>
+@endsection
 </body>
     
 </html>

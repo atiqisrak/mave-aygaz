@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\SliderController;
-use App\Http\Controllers\PageCardController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\MediaController;
 
@@ -27,10 +27,10 @@ Route::put('/sliders/{id}', [SliderController::class, 'update']);
 Route::delete('/sliders/{id}', [SliderController::class, 'destroy']);
 
 // Card
-Route::get('/cards', [PageCardController::class, 'index']);
-Route::post('/cards', [PageCardController::class, 'store']);
-Route::put('/cards/{id}', [PageCardController::class, 'update']);
-Route::delete('/cards/{id}', [PageCardController::class, 'destroy']);
+Route::get('/cards', [CardController::class, 'index']);
+Route::post('/cards', [CardController::class, 'store']);
+Route::put('/cards/{id}', [CardController::class, 'update']);
+Route::delete('/cards/{id}', [CardController::class, 'destroy']);
 
 // Form
 Route::get('/forms', [FormController::class, 'index']);

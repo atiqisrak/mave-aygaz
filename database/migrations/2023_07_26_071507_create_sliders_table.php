@@ -15,9 +15,6 @@ class CreateSlidersTable extends Migration
             $table->unsignedBigInteger('media_ids');
             $table->tinyInteger('status')->default(false);
             $table->timestamps();
-
-            $table->foreign('media_ids')->references('id')->on('media');
-
         });
     }
 

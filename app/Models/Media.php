@@ -12,4 +12,8 @@ class Media extends Model
         'file_type',
         'file_path',
     ];
+    public function entities()
+    {
+        return $this->morphToMany(Entity::class, 'entity', 'medex');
+    }
 }

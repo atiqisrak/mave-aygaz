@@ -10,4 +10,8 @@ class Navbar extends Model
     protected $fillable = ['logo', 'menu_items', 'contact_number'];
 
     protected $casts = ['menu_items' => 'json'];
+    public function media()
+    {
+        return $this->morphToMany(Media::class, 'entity', 'medex');
+    }
 }

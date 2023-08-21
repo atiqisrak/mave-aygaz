@@ -55,20 +55,28 @@
                 <label class="form-label" for="media">Media:</label>
                 <input 
                     type="file" 
-                    name="media" 
+                    name="media[]" 
                     id="media"
-                    class="form-control @error('media') is-invalid @enderror">
+                    class="form-control @error('media') is-invalid @enderror"
+                    multiple>
+                    
   
                 @error('media')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
    
+            <!-- Show uploaded images -->
             <div class="mb-3">
-                <!-- <img id="previewImage" src="" alt="Preview Image"> -->
-                <img src="{{ asset('media/'.Session::get('media')) }}" width="300px">
-
+                @if (Session::has('media'))
+                    @foreach (Session::get('media') as $mediaName)
+                        <img src="{{ asset('media/'.$mediaName) }}" width="800px">
+                    @endforeach
+                @endif
             </div>
+
+
+
    
             <div class="mb-3">
                 <button type="submit" class="btn btn-success">Upload</button>
@@ -79,21 +87,6 @@
       </div>
     </div>
 </div>
-
-@section('scripts')
-<script>
-var inputMedia = document.getElementById("media");
-var previewImage = document.getElementById("previewImage");
-
-inputMedia.addEventListener("change", function() {
-    var reader = new FileReader();
-    reader.onload = function() {
-        previewImage.src = reader.result;
-    };
-    reader.readAsDataURL(inputMedia.files[0]);
-});
-</script>
-@endsection
 </body>
     
 </html>

@@ -37,43 +37,53 @@ class MediaController extends Controller
 }
 
     // store
-
     public function store(Request $request)
-    {
-        if ($request->method() !== 'POST') {
-            return redirect()->back();
-        }
-        
-        if (! $request->hasFile('media')) {
-            return redirect()->back()->with('error', 'Please select a file to upload.');
-        }
+{
+    if ($request->method() !== 'POST') {
+        return redirect()->back();
+    }
 
-        
-        $request->validate([
-            'media' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf,mp4,mkv|max:204800',
-        ]);
+    if (! $request->hasFile('media')) {
+        return redirect()->back()->with('error', 'Please select at least one file to upload.');
+    }
+    // dd($request->file('media'));
+    $mediaPaths = [];
 
+    foreach ($request->file('media') as $file) {
+        // $validatedData = $request->validate([
+        //     'media.*' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf,mp4,mkv|max:204800',
+        // ]);
+    
         // Generate a title based on the original file name
-        $originalName = $request->media->getClientOriginalName();
+        $originalName = $file->getClientOriginalName();
         $title = pathinfo($originalName, PATHINFO_FILENAME);
         $generatedTitle = "mave_aygaz_" . Str::random(6);
-
-        // Rename the image
-        $mediaName = $generatedTitle . '.' . $request->media->extension();
-
-        // Move the uploaded file to the public/images directory
-        $request->media->move(public_path('media'), $mediaName);
-
-        // Save the new title and image path to the database
+    
+        // Rename the media
+        $mediaName = $generatedTitle . '.' . $file->extension();
+    
+        // Move the uploaded file to the public/media directory
+        $file->move(public_path('media'), $mediaName);
+    
+        // Save the new title and media path to the database
         $media = Media::create([
             'file_name' => $generatedTitle,
-            'file_type' => $request->media->getClientMimeType(),
+            'file_type' => $file->getClientMimeType(),
             'file_path' => 'media/' . $mediaName,
         ]);
-
-        // return response()->json($media, 201);
-        return redirect()->route('media.upload')->with('success', 'Media updated successfully. Media name: '.$mediaName)->with('media', $mediaName);
+    
+        // Add the media path to the mediaPaths array
+        $mediaPaths[] = $mediaName;
     }
+    
+
+    // Store the media paths in the session
+    \Session::put('media', $mediaPaths);
+
+    return redirect()->route('media.upload')->with('success', 'Media updated successfully. Media names: ' . implode(', ', $mediaPaths));
+}
+
+
 
     // update
 

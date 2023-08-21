@@ -49,32 +49,36 @@ class MediaController extends Controller
     // dd($request->file('media'));
     $mediaPaths = [];
 
-    foreach ($request->file('media') as $file) {
-        // $validatedData = $request->validate([
-        //     'media.*' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf,mp4,mkv|max:204800',
-        // ]);
-    
-        // Generate a title based on the original file name
-        $originalName = $file->getClientOriginalName();
-        $title = pathinfo($originalName, PATHINFO_FILENAME);
-        $generatedTitle = "mave_aygaz_" . Str::random(6);
-    
-        // Rename the media
-        $mediaName = $generatedTitle . '.' . $file->extension();
-    
-        // Move the uploaded file to the public/media directory
-        $file->move(public_path('media'), $mediaName);
-    
-        // Save the new title and media path to the database
-        $media = Media::create([
-            'file_name' => $generatedTitle,
-            'file_type' => $file->getClientMimeType(),
-            'file_path' => 'media/' . $mediaName,
+    $validateMediaData = $request->validate([
+        'media' => 'required',
+            'media.*' => 'mimes:jpeg,png,jpg,gif,svg,pdf,mp4,mkv|max:204800'
         ]);
-    
-        // Add the media path to the mediaPaths array
-        $mediaPaths[] = $mediaName;
-    }
+    if($request->hasfile('media'))
+        {
+            foreach ($request->file('media') as $key => $file) {
+            
+                // Generate a title based on the original file name
+                $originalName = $file->getClientOriginalName();
+                $title = pathinfo($originalName, PATHINFO_FILENAME);
+                $generatedTitle = "mave_aygaz_" . Str::random(6);
+            
+                // Rename the media
+                $mediaName = $generatedTitle . '.' . $file->extension();
+            
+                // Move the uploaded file to the public/media directory
+                $file->move(public_path('media'), $mediaName);
+            
+                // Save the new title and media path to the database
+                $media = Media::create([
+                    'file_name' => $generatedTitle,
+                    'file_type' => $file->getClientMimeType(),
+                    'file_path' => 'media/' . $mediaName,
+                ]);
+            
+                // Add the media path to the mediaPaths array
+                $mediaPaths[] = $mediaName;
+            }
+        }
     
 
     // Store the media paths in the session
@@ -82,8 +86,6 @@ class MediaController extends Controller
 
     return redirect()->route('media.upload')->with('success', 'Media updated successfully. Media names: ' . implode(', ', $mediaPaths));
 }
-
-
 
     // update
 

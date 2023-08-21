@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\CardController;
 
 Route::group(['prefix' => '{language?}'], function () {
     // Common routes for both languages
@@ -54,8 +55,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/image-upload', [ImageController::class, 'showImageUploadForm'])->name('image.upload');
-Route::post('/image-upload', [ImageController::class, 'store'])->name('image.store');
-
 Route::get('/mediaUpload', [MediaController::class, 'showMediaUploadForm'])->name('media.upload');
 Route::post('/mediaUpload', [MediaController::class, 'store'])->name('media.store');
+
+Route::get('/cards', [CardController::class, 'indexView'])->name('cards.index.view');

@@ -11,6 +11,11 @@ class CardController extends Controller
         $cards = Card::all();
         return response()->json($cards);
     }
+    public function indexView()
+    {
+        $cards = Card::all();
+        return view('cardView', compact('cards'));
+    }
 
     public function store(Request $request)
     {

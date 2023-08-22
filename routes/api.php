@@ -14,8 +14,9 @@ use App\Http\Controllers\MenuController;
 // Navbar
 Route::get('/navbars', [NavbarController::class, 'index']);
 Route::post('/navbars', [NavbarController::class, 'store']);
-Route::put('/navbars/{id}', [NavbarController::class, 'update']);
-Route::delete('/navbars/{id}', [NavbarController::class, 'destroy']);
+Route::put('/navbars/{navbar}', [NavbarController::class, 'update']);
+Route::delete('/navbars/{navbar}', [NavbarController::class, 'destroy']);
+
 
 // Menus
 Route::get('/menus', [MenuController::class, 'index']);
@@ -57,20 +58,3 @@ Route::delete('/forms/{id}', [FormController::class, 'destroy']);
 
 // Media
 Route::get('/media', [MediaController::class, 'index']);
-// Route::post('/media', [MediaController::class, 'store']);
-// Route::put('/media/{id}', [MediaController::class, 'update']);
-// Route::delete('/media/{id}', [MediaController::class, 'destroy']);
-
-// Image
-// Route::controller(ImageController::class)->group(function(){
-//     Route::get('image-upload', 'index');
-//     Route::post('image-upload', 'store')->name('image.store');
-// });
-
-// Route::get('/image-upload', [ImageController::class, 'index']);
-// Route::post('/image-upload', [ImageController::class, 'store'])->name('image.store');
-// Route::put('/image-upload/{id}', [ImageController::class, 'update']);
-// Route::delete('/image-upload/{id}', [ImageController::class, 'destroy']);
-
-// Page routes
-// About us

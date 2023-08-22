@@ -5,13 +5,9 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\NavbarController;
 
 Route::group(['prefix' => '{language?}'], function () {
-    // Common routes for both languages
-    Route::get('/navbar', [NavbarController::class, 'index']);
-    Route::post('/navbar', [NavbarController::class, 'store']);
-    Route::put('/navbar/{id}', [NavbarController::class, 'update']);
-    Route::delete('/navbar/{id}', [NavbarController::class, 'destroy']);
 
     Route::get('/sliders', [SliderController::class, 'index']);
     Route::post('/sliders', [SliderController::class, 'store']);
@@ -60,3 +56,5 @@ Route::post('/mediaUpload', [MediaController::class, 'store'])->name('media.stor
 Route::get('/cards', [CardController::class, 'indexView'])->name('cards.index.view');
 Route::get('/sliders', [SliderController::class, 'indexView'])->name('sliders.index.view');
 Route::post('/slider', [SliderController::class, 'store'])->name('slider.store');
+
+Route::get('/navbar', [NavbarController::class, 'indexView'])->name('navbar.indexView');

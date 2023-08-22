@@ -7,6 +7,7 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\MenuItemController;
 
 // Component routes
 // Navbar
@@ -14,6 +15,20 @@ Route::get('/navbars', [NavbarController::class, 'index']);
 Route::post('/navbars', [NavbarController::class, 'store']);
 Route::put('/navbars/{id}', [NavbarController::class, 'update']);
 Route::delete('/navbars/{id}', [NavbarController::class, 'destroy']);
+
+// Menus
+Route::get('/menus', [MenuController::class, 'index']);
+Route::post('/menus', [MenuController::class, 'store']);
+Route::put('/menus/{id}', [MenuController::class, 'update'])->name('menus.update');
+Route::delete('/menus/{id}', [MenuController::class, 'destroy'])->name('menus.destroy');
+
+// Menu Items
+Route::get('menuitems', [MenuItemController::class, 'index']);
+Route::post('menuitems', [MenuItemController::class, 'store']);
+Route::put('menuitems/{menuItem}', [MenuItemController::class, 'update']);
+Route::delete('menuitems/{menuItem}', [MenuItemController::class, 'destroy']);
+
+
 // Footer
 Route::get('/footers', [FooterController::class, 'index']);
 Route::post('/footers', [FooterController::class, 'store']);

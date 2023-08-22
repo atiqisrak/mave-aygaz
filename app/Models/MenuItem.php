@@ -11,8 +11,8 @@ class MenuItem extends Model
 
     protected $fillable = ['title', 'link'];
 
-    public function menu()
+    public function entities()
     {
-        return $this->belongsTo(Menu::class);
+        return $this->belongsToMany(Menu::class, 'menx', 'menu_item_id', 'menu_id');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\CardController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MenuItemController;
+use App\Http\Controllers\MenuController;
 
 // Component routes
 // Navbar

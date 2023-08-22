@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Slider;
-use App\Models\Media;
 
 class SliderController extends Controller
 {
@@ -14,10 +13,11 @@ class SliderController extends Controller
         return response()->json($sliders);
     }
 
-    public function show($id)
+    public function indexView()
     {
-        $slider = Slider::findOrFail($id);
-        return response()->json($slider);
+        $sliders = Slider::all();
+        $sliders = Slider::orderBy('created_at', 'desc')->get();
+        return view('sliderView', compact('sliders'));
     }
 
     public function store(Request $request)
@@ -29,12 +29,8 @@ class SliderController extends Controller
             'status' => 'boolean',
         ]);
 
-        $slider = Slider::create([
-            'title_en' => $validatedData['title_en'],
-            'title_bn' => $validatedData['title_bn'],
-            'media_ids' => $validatedData['media_ids'],
-            'status' => $validatedData['status'],
-        ]);
+        $slider = Slider::create($validatedData);
+        $slider->media()->attach($validatedData['media_ids']);
 
         return response()->json($slider, 201);
     }
@@ -50,19 +46,17 @@ class SliderController extends Controller
             'status' => 'boolean',
         ]);
 
-        $slider->update([
-            'title_en' => $validatedData['title_en'],
-            'title_bn' => $validatedData['title_bn'],
-            'media_ids' => $validatedData['media_ids'],
-            'status' => $validatedData['status'],
-        ]);
+        $slider = Slider::findOrFail($id);
+        $slider->update($validatedData);
+        $slider->media()->sync([$validatedData['media_ids']]); // Sync to update the media relationship
 
-        return response()->json($slider);
+        return response()->json($slider, 200);
     }
 
     public function destroy($id)
     {
         $slider = Slider::findOrFail($id);
+        $slider->media()->detach(); // Detach media relationships before deleting the Slider
         $slider->delete();
         return response()->json(['message' => 'Slider deleted successfully']);
     }

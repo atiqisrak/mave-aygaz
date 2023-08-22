@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\SliderController;
 
 Route::group(['prefix' => '{language?}'], function () {
     // Common routes for both languages
@@ -16,8 +17,6 @@ Route::group(['prefix' => '{language?}'], function () {
     Route::post('/sliders', [SliderController::class, 'store']);
     Route::put('/sliders/{id}', [SliderController::class, 'update']);
     Route::delete('/sliders/{id}', [SliderController::class, 'destroy']);
-
-    // Add more common routes here...
 
     // Bengali specific routes
     Route::group(['prefix' => 'bn'], function () {
@@ -59,3 +58,5 @@ Route::get('/mediaUpload', [MediaController::class, 'showMediaUploadForm'])->nam
 Route::post('/mediaUpload', [MediaController::class, 'store'])->name('media.store');
 
 Route::get('/cards', [CardController::class, 'indexView'])->name('cards.index.view');
+Route::get('/sliders', [SliderController::class, 'indexView'])->name('sliders.index.view');
+Route::post('/slider', [SliderController::class, 'store'])->name('slider.store');

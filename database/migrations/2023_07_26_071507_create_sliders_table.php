@@ -12,7 +12,7 @@ class CreateSlidersTable extends Migration
             $table->id();
             $table->string('title_en')->nullable();
             $table->string('title_bn')->nullable();
-            $table->unsignedBigInteger('media_ids');
+            $table->json('media_ids');
             $table->tinyInteger('status')->default(false);
             $table->timestamps();
         });

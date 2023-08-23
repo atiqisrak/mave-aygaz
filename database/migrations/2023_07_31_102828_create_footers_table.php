@@ -43,8 +43,6 @@ class CreateFootersTable extends Migration
             $table->json('column3_logos');
             $table->tinyInteger('column3_status')->default(1);
 
-            // $table->foreign('column3_logos.*.image')->references('id')->on('media')->onDelete('cascade');
-
             $table->string('column4_title_en');
             $table->string('column4_title_bn');
             $table->unsignedBigInteger('column4_image');

@@ -23,7 +23,8 @@ class FooterController extends Controller
         return response()->json(['message' => 'No footer data found.'], 404);
     }
 
-    return view('footerView', compact('footer'));
+    // return view('footerView', compact('footer'));
+    return view('footerView', ['data' => $footer]);
 }
 
 
@@ -136,10 +137,10 @@ class FooterController extends Controller
                 'column3_links1_bn.*.link' => 'required|string',
                 'column3_title2_en' => 'required|string',
                 'column3_title2_bn' => 'required|string',
-                // 'column3_logos' => 'required|array',
-                // 'column3_logos.*.title' => 'required|string',
-                // 'column3_logos.*.image' => 'required|exists:media,id',
-                // 'column3_logos.*.link' => 'required|string',
+                'column3_logos' => 'required|array',
+                'column3_logos.*.title' => 'required|string',
+                'column3_logos.*.image' => 'required|exists:media,id',
+                'column3_logos.*.link' => 'required|string',
                 'column3_status' => 'required|boolean',
                 'column4_title_en' => 'required|string',
                 'column4_title_bn' => 'required|string',
@@ -155,14 +156,17 @@ class FooterController extends Controller
         } catch (ValidationException $e) {
             return response()->json(['error' => $e->errors()], 422);
         }
+        
+        $validatedData['column2_links_en'] = json_encode($validatedData['column2_links_en']);
+        $validatedData['column2_links_bn'] = json_encode($validatedData['column2_links_bn']);
+        $validatedData['column3_links1_en'] = json_encode($validatedData['column3_links1_en']);
+        $validatedData['column3_links1_bn'] = json_encode($validatedData['column3_links1_bn']);
+        $validatedData['column3_logos'] = json_encode($validatedData['column3_logos']);
+
     
         // Update the Footer with the validated data
         $footer->update($validatedData);
-    
-        // Update media relationships
-        $mediaIds = collect($validatedData['column3_logos'])->pluck('image')->toArray();
-        $footer->media()->sync($mediaIds);
-    
+        
         return response()->json($footer, 200);
     }
     

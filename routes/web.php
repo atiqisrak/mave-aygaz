@@ -6,6 +6,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\NavbarController;
+use App\Http\Controllers\FooterController;
 
 Route::group(['prefix' => '{language?}'], function () {
 
@@ -58,3 +59,4 @@ Route::get('/sliders', [SliderController::class, 'indexView'])->name('sliders.in
 Route::post('/slider', [SliderController::class, 'store'])->name('slider.store');
 
 Route::get('/navbar', [NavbarController::class, 'indexView'])->name('navbar.indexView');
+Route::get('/footer', [FooterController::class, 'indexView'])->name('footer.indexView');

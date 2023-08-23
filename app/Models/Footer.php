@@ -10,7 +10,7 @@ class Footer extends Model
         'title_en',
         'title_bn',
         'footer_status',
-        'logo',
+        'logo_id',
         'address1_title_en',
         'address1_title_bn',
         'address1_description_en',
@@ -45,11 +45,8 @@ class Footer extends Model
         'column4_status',
     ];
 
-    protected $casts = [
-        'column2_links_en' => 'json',
-        'column2_links_bn' => 'json',
-        'column3_links1_en' => 'json',
-        'column3_links1_bn' => 'json',
-        'column3_logos' => 'json',
-    ];
+    public function media()
+    {
+        return $this->morphToMany(Media::class, 'entity', 'medex');
+    }
 }

@@ -17,7 +17,6 @@ Route::post('/navbars', [NavbarController::class, 'store']);
 Route::put('/navbars/{navbar}', [NavbarController::class, 'update']);
 Route::delete('/navbars/{navbar}', [NavbarController::class, 'destroy']);
 
-
 // Menus
 Route::get('/menus', [MenuController::class, 'index']);
 Route::post('/menus', [MenuController::class, 'store']);

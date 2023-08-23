@@ -10,7 +10,6 @@ class HomepageController extends Controller
     public function index()
     {
         $homepages = Homepage::all();
-        // return view('homepages.index', compact('homepages'));
         return response()->json($homepages);
     }
 
@@ -22,7 +21,9 @@ class HomepageController extends Controller
         return response()->json(['message' => 'Homepage data not found.'], 404);
     }
     
-    return view('home.indexView', compact('homepage'));
+    $data = $homepage;
+
+    return view('homeView', compact('data'));
 }
 
     public function show(Homepage $homepage)
@@ -49,6 +50,9 @@ class HomepageController extends Controller
             'media_ids.*' => 'integer',
             'footer_id' => 'required|integer',
         ]);
+
+        $homepage = Homepage::create($validatedData);
+        $homepage->cardex()->attach($validatedData['cards_id']);
 
         $validatedData['cards_id'] = json_encode($validatedData['cards_id']);
         $validatedData['media_ids'] = json_encode($validatedData['media_ids']);
@@ -87,6 +91,7 @@ class HomepageController extends Controller
 
     public function destroy(Homepage $homepage)
     {
+        $homepage->cardex()->detach();
         $homepage->delete();
         return redirect()->route('homepages.index')->with('success', 'Homepage deleted successfully.');
     }

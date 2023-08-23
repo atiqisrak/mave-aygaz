@@ -16,8 +16,13 @@ class Card extends Model
     'link_url',
     'status'
 ];
-public function media()
+    public function media()
     {
         return $this->morphToMany(Media::class, 'entity', 'medex');
+    }
+
+    public function cardex()
+    {
+        return $this->morphToMany(Cardexable::class, 'cardexable', 'cardex');
     }
 }

@@ -10,6 +10,8 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\MenuController;
 
+use App\Http\Controllers\HomepageController;
+
 // Component routes
 // Navbar
 Route::get('/navbars', [NavbarController::class, 'index']);
@@ -57,3 +59,12 @@ Route::delete('/forms/{id}', [FormController::class, 'destroy']);
 
 // Media
 Route::get('/media', [MediaController::class, 'index']);
+
+
+// --------------- Pages  -------------------
+// Home
+Route::get('/home', [HomepageController::class, 'index']);
+Route::post('/home', [HomepageController::class, 'store']);
+Route::get('/home/{id}', [HomepageController::class, 'show']);
+Route::put('/home/{id}', [HomepageController::class, 'update']);
+Route::delete('/home/{id}', [HomepageController::class, 'destroy']);

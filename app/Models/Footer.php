@@ -21,17 +21,9 @@ class Footer extends Model
         'address2_description_bn',
         'address1_status',
         'address2_status',
-        'column2_title_en',
-        'column2_title_bn',
-        'column2_links_en',
-        'column2_links_bn',
+        'column2_menu_id',
         'column2_status',
-        'column3_title1_en',
-        'column3_title1_bn',
-        'column3_links1_en',
-        'column3_links1_bn',
-        'column3_title2_en',
-        'column3_title2_bn',
+        'column3_menu_id',
         'column3_logos',
         'column3_status',
         'column4_title_en',
@@ -43,10 +35,15 @@ class Footer extends Model
         'column4_description_en',
         'column4_description_bn',
         'column4_status',
+        'bottom_menu_id',
     ];
 
     public function media()
     {
         return $this->morphToMany(Media::class, 'entity', 'medex');
+    }
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
     }
 }

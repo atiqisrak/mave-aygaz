@@ -11,10 +11,7 @@ return new class extends Migration
     Schema::create('menus', function (Blueprint $table) {
         $table->id();
         $table->string('name');
-        // $table->unsignedBigInteger('menu_items_ids');
         $table->timestamps();
-
-        // $table->foreign('menu_items_ids')->references('id')->on('menu_items');
     });
 }
 

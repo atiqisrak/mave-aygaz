@@ -46,6 +46,8 @@ class NavbarController extends Controller
 
     public function destroy(Navbar $navbar)
     {
+        $navbar = Navbar::findOrFail($id);
+        $navbar->media()->detach();
         $navbar->delete();
 
         return response()->json(['message' => 'Navbar deleted successfully'], 200);

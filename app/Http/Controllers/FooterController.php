@@ -46,25 +46,9 @@ class FooterController extends Controller
                 'address2_description_bn' => 'required|string',
                 'address1_status' => 'required|boolean',
                 'address2_status' => 'required|boolean',
-                'column2_title_en' => 'required|string',
-                'column2_title_bn' => 'required|string',
-                'column2_links_en' => 'required|array',
-                'column2_links_bn' => 'required|array',
-                'column2_links_en.*.text' => 'required|string',
-                'column2_links_en.*.link' => 'required|string',
-                'column2_links_bn.*.text' => 'required|string',
-                'column2_links_bn.*.link' => 'required|string',
+                'column2_menu_id' => 'required|exists:menus,id',
                 'column2_status' => 'required|boolean',
-                'column3_title1_en' => 'required|string',
-                'column3_title1_bn' => 'required|string',
-                'column3_links1_en' => 'required|array',
-                'column3_links1_bn' => 'required|array',
-                'column3_links1_en.*.text' => 'required|string',
-                'column3_links1_en.*.link' => 'required|string',
-                'column3_links1_bn.*.text' => 'required|string',
-                'column3_links1_bn.*.link' => 'required|string',
-                'column3_title2_en' => 'required|string',
-                'column3_title2_bn' => 'required|string',
+                'column3_menu_id' => 'required|exists:menus,id',
                 'column3_logos' => 'required|array',
                 'column3_logos.*.title' => 'required|string',
                 'column3_logos.*.image' => 'required|exists:media,id',
@@ -79,17 +63,18 @@ class FooterController extends Controller
                 'column4_description_en' => 'required|string',
                 'column4_description_bn' => 'required|string',
                 'column4_status' => 'required|boolean',
+                'bottom_menu_id' => 'required|exists:menus,id',
             ]);
             
         } catch (ValidationException $e) {
             return response()->json(['error' => $e->errors()], 422);
         }
         // dd($validatedData);
-        // Create Footer instance
-        $validatedData['column2_links_en'] = json_encode($validatedData['column2_links_en']);
-        $validatedData['column2_links_bn'] = json_encode($validatedData['column2_links_bn']);
-        $validatedData['column3_links1_en'] = json_encode($validatedData['column3_links1_en']);
-        $validatedData['column3_links1_bn'] = json_encode($validatedData['column3_links1_bn']);
+        // // Create Footer instance
+        // $validatedData['column2_links_en'] = json_encode($validatedData['column2_links_en']);
+        // $validatedData['column2_links_bn'] = json_encode($validatedData['column2_links_bn']);
+        // $validatedData['column3_links1_en'] = json_encode($validatedData['column3_links1_en']);
+        // $validatedData['column3_links1_bn'] = json_encode($validatedData['column3_links1_bn']);
         $validatedData['column3_logos'] = json_encode($validatedData['column3_logos']);
 
 
@@ -118,25 +103,9 @@ class FooterController extends Controller
                 'address2_description_bn' => 'required|string',
                 'address1_status' => 'required|boolean',
                 'address2_status' => 'required|boolean',
-                'column2_title_en' => 'required|string',
-                'column2_title_bn' => 'required|string',
-                'column2_links_en' => 'required|array',
-                'column2_links_bn' => 'required|array',
-                'column2_links_en.*.text' => 'required|string',
-                'column2_links_en.*.link' => 'required|string',
-                'column2_links_bn.*.text' => 'required|string',
-                'column2_links_bn.*.link' => 'required|string',
+                'column2_menu_id' => 'required|exists:menus,id',
                 'column2_status' => 'required|boolean',
-                'column3_title1_en' => 'required|string',
-                'column3_title1_bn' => 'required|string',
-                'column3_links1_en' => 'required|array',
-                'column3_links1_bn' => 'required|array',
-                'column3_links1_en.*.text' => 'required|string',
-                'column3_links1_en.*.link' => 'required|string',
-                'column3_links1_bn.*.text' => 'required|string',
-                'column3_links1_bn.*.link' => 'required|string',
-                'column3_title2_en' => 'required|string',
-                'column3_title2_bn' => 'required|string',
+                'column3_menu_id' => 'required|exists:menus,id',
                 'column3_logos' => 'required|array',
                 'column3_logos.*.title' => 'required|string',
                 'column3_logos.*.image' => 'required|exists:media,id',
@@ -151,16 +120,17 @@ class FooterController extends Controller
                 'column4_description_en' => 'required|string',
                 'column4_description_bn' => 'required|string',
                 'column4_status' => 'required|boolean',
+                'bottom_menu_id' => 'required|exists:menus,id',
             ]);
             
         } catch (ValidationException $e) {
             return response()->json(['error' => $e->errors()], 422);
         }
         
-        $validatedData['column2_links_en'] = json_encode($validatedData['column2_links_en']);
-        $validatedData['column2_links_bn'] = json_encode($validatedData['column2_links_bn']);
-        $validatedData['column3_links1_en'] = json_encode($validatedData['column3_links1_en']);
-        $validatedData['column3_links1_bn'] = json_encode($validatedData['column3_links1_bn']);
+        // $validatedData['column2_links_en'] = json_encode($validatedData['column2_links_en']);
+        // $validatedData['column2_links_bn'] = json_encode($validatedData['column2_links_bn']);
+        // $validatedData['column3_links1_en'] = json_encode($validatedData['column3_links1_en']);
+        // $validatedData['column3_links1_bn'] = json_encode($validatedData['column3_links1_bn']);
         $validatedData['column3_logos'] = json_encode($validatedData['column3_logos']);
 
     
@@ -174,7 +144,7 @@ class FooterController extends Controller
     public function destroy($id)
     {
         $footer = Footer::findOrFail($id);
-        $footer->media()->detach(); // Detach media relationships before deleting the Footer
+        $footer->media()->detach();
         $footer->delete();
         return response()->json(null, 204);
     }

@@ -13,7 +13,7 @@ class CardController extends Controller
     }
     public function indexView()
     {
-        $cards = Card::all();
+        $cards = Card::with('media')->get();
         return view('cardView', compact('cards'));
     }
 

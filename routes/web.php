@@ -9,6 +9,7 @@ use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\FooterController;
 
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\AboutPageController;
 
 Route::group(['prefix' => '{language?}'], function () {
 
@@ -66,3 +67,4 @@ Route::get('/footer', [FooterController::class, 'indexView'])->name('footer.inde
 
 // ----------- Pages ----------------
 Route::get('/home', [HomepageController::class, 'indexView'])->name('home.indexView');
+Route::get('/about', [AboutPageController::class, 'indexView'])->name('about.indexView');

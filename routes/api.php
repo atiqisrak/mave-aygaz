@@ -11,6 +11,7 @@ use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\MenuController;
 
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\AboutPageController;
 
 // Component routes
 // Navbar
@@ -68,3 +69,9 @@ Route::post('/home', [HomepageController::class, 'store']);
 Route::get('/home/{id}', [HomepageController::class, 'show']);
 Route::put('/home/{id}', [HomepageController::class, 'update']);
 Route::delete('/home/{id}', [HomepageController::class, 'destroy']);
+
+// About
+Route::get('/about', [AboutPageController::class, 'index']);
+Route::post('/about', [AboutPageController::class, 'store']);
+Route::put('/about/{id}', [AboutPageController::class, 'update']);
+Route::delete('/about/{id}', [AboutPageController::class, 'destroy']);

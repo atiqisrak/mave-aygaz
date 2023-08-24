@@ -32,7 +32,6 @@ class HomepageController extends Controller
     }
     public function create()
     {
-        // Assuming you have necessary data for dropdowns, etc.
         return view('homepages.create');
     }
 

@@ -9,20 +9,41 @@
             background-color: #f9f9f9;
         }
         .container {
-            width: 80%;
+            width: 60%;
             margin: 0 auto;
             padding-top: 20px;
+        }
+        .navbar {
+            background-color: #333;
+        }
+        .navbar-brand {
+            color: white;
+            font-weight: bold;
+        }
+        .navbar-nav {
+            margin-right: 20px;
+        }
+        .nav-link {
+            color: white;
+        }
+        .navbar img{
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
         }
         .slider {
             padding: 50px;
             border: 2px solid purple;
             border-radius: 20px;
             margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+
         }
         img {
-            width: 100%;
-            max-width: 800px;
-            height: auto;
+            width: 1100px;
+            /* max-width: 1100px; */
+            height: 400px;
             object-fit: cover;
             border-radius: 30px;
         }
@@ -31,31 +52,60 @@
             text-align: center;
             color: orangered;
         }
+        .carousel-control-prev, .carousel-control-next {
+            color: orangered;
+        }
+        
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Homepage</h1>
+        <!-- <h1>Homepage</h1> -->
         
         <div class="navbar">
-            Navbar ID: {{ $data['navbar_id'] }}
+            @include('navbarView', ['navbar' => $data['navbar']])
         </div>
         
         <div class="slider">
-            @foreach ($data['slider']['media'] as $media)
-                <img src="{{ asset($media['file_path']) }}" alt="Slider Image">
-            @endforeach
-            
+            <div id="homepage-slider" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach ($data['slider']['media'] as $index => $media)
+                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                            <img src="{{ asset($media['file_path']) }}" alt="Slider Image">
+                        </div>
+                    @endforeach
+                </div>
+                <a class="carousel-control-prev" href="#homepage-slider" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#homepage-slider" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </div>
         </div>
         
-        <div class="cards">
-            @foreach ($data['cards'] as $card)
-                <div class="card">
-                    Card ID: {{ $card['id'] }}
-                    <!-- Display other card-related data here -->
+        <div class="container">
+    <h2>Carousel of Cards</h2>
+    <div id="cardsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach ($data['cards'] as $index => $card)
+                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                    @include('cardView', ['card' => $card])
                 </div>
             @endforeach
         </div>
+        <a class="carousel-control-prev" href="#cardsCarousel" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#cardsCarousel" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </a>
+    </div>
+</div>
         
         <div class="media">
             <img src="{{ asset($data['media']['file_path']) }}" alt="Media Image">
@@ -68,48 +118,5 @@
     
     <!-- Include Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    document.getElementById('submitForm').addEventListener('click', function() {
-        var formData = {
-            title_en: document.getElementById('title_en').value,
-            title_bn: document.getElementById('title_bn').value,
-            media_ids: document.getElementById('media_ids').value.split(','),
-            status: document.getElementById('status').checked ? true : false
-        };
-        
-        fetch('http://127.0.0.1:8000/api/sliders', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Clear previous messages
-            document.getElementById('messageContainer').innerHTML = '';
-
-            // Display success message
-            var successMessage = document.createElement('div');
-            successMessage.classList.add('alert', 'alert-success');
-            successMessage.innerText = 'Slider created successfully.';
-            document.getElementById('messageContainer').appendChild(successMessage);
-            console.log(data);
-        })
-        .catch(error => {
-            // Clear previous messages
-            document.getElementById('messageContainer').innerHTML = '';
-
-            // Display error message
-            var errorMessage = document.createElement('div');
-            errorMessage.classList.add('alert', 'alert-danger');
-            errorMessage.innerText = 'An error occurred while creating the slider.';
-            document.getElementById('messageContainer').appendChild(errorMessage);
-
-            console.error('Error:', error);
-        });
-    });
-</script>
 </body>
 </html>

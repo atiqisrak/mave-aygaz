@@ -3,6 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Card extends Model
 {
@@ -14,10 +15,16 @@ class Card extends Model
     'description_en',
     'description_bn',
     'link_url',
-    'status'
+    'status',
 ];
+
     public function media()
     {
         return $this->morphToMany(Media::class, 'entity', 'medex');
+    }
+
+    public function pages(): MorphToMany
+    {
+        return $this->morphToMany(Page::class, 'cardable');
     }
 }

@@ -17,13 +17,14 @@ class CreateHomepagesTable extends Migration
             $table->unsignedBigInteger('media_id')->nullable();
             $table->json('media_ids');
             $table->unsignedBigInteger('footer_id')->nullable();
-            $table->timestamps();
 
             $table->foreign('navbar_id')->references('id')->on('navbars')->onDelete('cascade');
             $table->foreign('slider_id')->references('id')->on('sliders')->onDelete('cascade');
             $table->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');
             $table->foreign('media_id')->references('id')->on('media')->onDelete('cascade');
             $table->foreign('footer_id')->references('id')->on('footers')->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 

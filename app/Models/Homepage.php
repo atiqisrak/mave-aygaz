@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Homepage extends Model
 {
@@ -32,9 +33,13 @@ class Homepage extends Model
         return $this->belongsTo(Card::class);
     }
 
-    public function cards()
+    // public function cards()
+    // {
+    //     return $this->hasMany(Card::class);
+    // }
+    public function cards(): MorphToMany
     {
-        return $this->hasMany(Card::class);
+        return $this->morphToMany(Card::class, 'cardable');
     }
 
     public function media()

@@ -20,9 +20,4 @@ class Card extends Model
     {
         return $this->morphToMany(Media::class, 'entity', 'medex');
     }
-
-    public function cardex()
-    {
-        return $this->morphToMany(Cardexable::class, 'cardexable', 'cardex');
-    }
 }

@@ -34,8 +34,7 @@ class Homepage extends Model
 
     public function cards()
     {
-        // return $this->hasMany(Card::class);
-        return $this->morphToMany(Card::class, 'cardable', 'cardables');
+        return $this->hasMany(Card::class);
     }
 
     public function media()

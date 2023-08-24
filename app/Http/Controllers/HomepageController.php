@@ -51,9 +51,6 @@ class HomepageController extends Controller
             'footer_id' => 'required|integer',
         ]);
 
-        $homepage = Homepage::create($validatedData);
-        $homepage->cardex()->attach($validatedData['cards_id']);
-
         $validatedData['cards_id'] = json_encode($validatedData['cards_id']);
         $validatedData['media_ids'] = json_encode($validatedData['media_ids']);
 
@@ -91,7 +88,7 @@ class HomepageController extends Controller
 
     public function destroy(Homepage $homepage)
     {
-        $homepage->cardex()->detach();
+        // $homepage->cardex()->detach();
         $homepage->delete();
         return redirect()->route('homepages.index')->with('success', 'Homepage deleted successfully.');
     }

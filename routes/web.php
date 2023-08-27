@@ -18,32 +18,6 @@ Route::group(['prefix' => '{language?}'], function () {
     Route::put('/sliders/{id}', [SliderController::class, 'update']);
     Route::delete('/sliders/{id}', [SliderController::class, 'destroy']);
 
-    // Bengali specific routes
-    Route::group(['prefix' => 'bn'], function () {
-        Route::get('/about-us', [AboutUsController::class, 'index']);
-        Route::post('/about-us', [AboutUsController::class, 'store']);
-        Route::put('/about-us/{id}', [AboutUsController::class, 'update']);
-        Route::delete('/about-us/{id}', [AboutUsController::class, 'destroy']);
-
-        // Add more Bengali routes as needed
-    });
-
-    // English specific routes
-    Route::group(['prefix' => 'en'], function () {
-        Route::get('/about-us', [AboutUsController::class, 'index']);
-        Route::post('/about-us', [AboutUsController::class, 'store']);
-        Route::put('/about-us/{id}', [AboutUsController::class, 'update']);
-        Route::delete('/about-us/{id}', [AboutUsController::class, 'destroy']);
-
-        // Add more English routes as needed
-    });
-
-    // Common routes for both languages
-    Route::get('/carousels', [CarouselController::class, 'index']);
-    Route::post('/carousels', [CarouselController::class, 'store']);
-    Route::put('/carousels/{id}', [CarouselController::class, 'update']);
-    Route::delete('/carousels/{id}', [CarouselController::class, 'destroy']);
-
     Route::get('/cards', [CardController::class, 'index']);
     Route::post('/cards', [CardController::class, 'store']);
     Route::put('/cards/{id}', [CardController::class, 'update']);

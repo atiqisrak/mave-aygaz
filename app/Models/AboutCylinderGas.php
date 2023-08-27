@@ -5,16 +5,50 @@ use Illuminate\Database\Eloquent\Model;
 
 class AboutCylinderGas extends Model
 {
+    protected $table = 'about_cylinder_gas';
     protected $fillable = [
-        'title1', 'description1', 'banner_image', 'title2', 'description2',
-        'video_url', 'title3', 'description3', 'card_id_array1',
-        'title4', 'description4', 'card_id_array2', 'status'
+        'title_en',
+        'title_bn',
+        'media_id',
+        'tabs',
+        'card_id',
+        'media2_id',
+        'card2_id',
+        'title2_en',
+        'title2_bn',
+        'subtitle_en',
+        'subtitle_bn',
+        'cards_id',
+        'title3_en',
+        'title3_bn',
+        'subtitle2_en',
+        'subtitle2_bn',
+        'cards2_id',
+        'status',
     ];
 
-    protected $casts = [
-        'card_id_array1' => 'json',
-        'card_id_array2' => 'json',
-        'status' => 'boolean',
-    ];
-    protected $table = 'about_cylinder_gas';
+    public function media()
+    {
+        return $this->belongsTo(Media::class, 'media_id');
+    }
+
+    public function media2()
+    {
+        return $this->belongsTo(Media::class, 'media2_id');
+    }
+
+    public function cards(): MorphToMany
+    {
+        return $this->morphToMany(Card::class, 'cardable');
+    }
+
+    public function card2()
+    {
+        return $this->belongsTo(Card::class, 'card2_id');
+    }
+
+    public function cards2(): MorphToMany
+    {
+        return $this->morphToMany(Card::class, 'cardable');
+    }
 }

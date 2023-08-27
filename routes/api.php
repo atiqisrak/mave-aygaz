@@ -12,6 +12,7 @@ use App\Http\Controllers\MenuController;
 
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\AboutPageController;
+use App\Http\Controllers\AboutCylinderGasController;
 
 // Component routes
 // Navbar
@@ -75,3 +76,9 @@ Route::get('/about', [AboutPageController::class, 'index']);
 Route::post('/about', [AboutPageController::class, 'store']);
 Route::put('/about/{id}', [AboutPageController::class, 'update']);
 Route::delete('/about/{id}', [AboutPageController::class, 'destroy']);
+
+// Cylindergas
+Route::get('/cylindergas', [AboutCylinderGasController::class, 'index']);
+Route::post('/cylindergas', [AboutCylinderGasController::class, 'store']);
+Route::put('/cylindergas/{id}', [AboutCylinderGasController::class, 'update']);
+Route::delete('/cylindergas/{id}', [AboutCylinderGasController::class, 'destroy']);

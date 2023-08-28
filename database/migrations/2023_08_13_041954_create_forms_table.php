@@ -13,10 +13,13 @@ class CreateFormsTable extends Migration
             $table->string('title_bn');
             $table->text('description_en');
             $table->text('description_bn');
-            $table->json('options')->nullable();
             $table->json('fields');
             $table->string('submit_direction')->nullable();
             $table->boolean('status')->default(false);
+
+            $table->unsignedBigInteger('formable_id')->nullable();
+            $table->string('formable_type')->nullable();
+
             $table->timestamps();
         });
     }

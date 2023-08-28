@@ -21,11 +21,12 @@ class FormController extends Controller
         'title_bn' => 'nullable|string',
         'description_bn' => 'nullable|string',
         'description_en' => 'nullable|string',
-        'options' => 'nullable|json',
         'fields' => 'required|array',
         'submit_direction' => 'required|string',
         'status' => 'required|boolean',
             ]);
+
+            $validatedData['fields'] = json_encode($validatedData['fields']);
     
             $form = Form::create($validatedData);
     
@@ -46,7 +47,6 @@ class FormController extends Controller
         'title_bn' => 'nullable|string',
         'description_bn' => 'nullable|string',
         'description_en' => 'nullable|string',
-        'options' => 'nullable|json',
         'fields' => 'required|array',
         'submit_direction' => 'required|string',
         'status' => 'required|boolean',

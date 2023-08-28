@@ -5,14 +5,34 @@ use Illuminate\Database\Eloquent\Model;
 
 class BulkGasPage extends Model
 {
-    public function form()
-{
-    return $this->belongsTo(Form::class);
-}
+    public function forms(): MorphMany
+    {
+        return $this->morphMany(Form::class, 'formable');
+    }
+    public function media()
+    {
+        return $this->belongsTo(Media::class, 'media_id');
+    }
+
 
     protected $fillable = [
-        'title', 'banner', 'title2', 'description2', 'section2_cards', 'section3_cards', 'title4', 'section4_cards', 'title5', 'section5_cards','form_id', 'status',
+        'title_en',
+        'title_bn',
+        'media_id',
+        'tabs',
+        'title2_en',
+        'title2_bn',
+        'description_en',
+        'description_bn',
+        'cards_id',
+        'cards2_id',
+        'cards3_id',
+        'title3_en',
+        'title3_bn',
+        'cards4_id',
+        'status',
     ];
+
 
     protected $casts = [
         'section2_cards' => 'json',

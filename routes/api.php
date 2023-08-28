@@ -14,6 +14,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\CylinderGasController;
 use App\Http\Controllers\AutogasPageController;
+use App\Http\Controllers\BulkgasPageController;
 
 // Component routes
 // Navbar
@@ -89,3 +90,9 @@ Route::get('/autogas', [AutogasPageController::class, 'index']);
 Route::post('/autogas', [AutogasPageController::class, 'store']);
 Route::put('/autogas/{id}', [AutogasPageController::class, 'update']);
 Route::delete('/autogas/{id}', [AutogasPageController::class, 'destroy']);
+
+// Bulk Gas
+Route::get('/bulkgas', [BulkgasPageController::class, 'index']);
+Route::post('/bulkgas', [BulkgasPageController::class, 'store']);
+Route::put('/bulkgas/{id}', [BulkgasPageController::class, 'update']);
+Route::delete('/bulkgas/{id}', [BulkgasPageController::class, 'destroy']);

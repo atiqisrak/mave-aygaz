@@ -13,6 +13,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\CylinderGasController;
+use App\Http\Controllers\AutogasPageController;
 
 // Component routes
 // Navbar
@@ -83,3 +84,8 @@ Route::post('/cylindergas', [CylinderGasController::class, 'store']);
 Route::put('/cylindergas/{id}', [CylinderGasController::class, 'update']);
 Route::delete('/cylindergas/{id}', [CylinderGasController::class, 'destroy']);
 
+// Autogas
+Route::get('/autogas', [AutogasPageController::class, 'index']);
+Route::post('/autogas', [AutogasPageController::class, 'store']);
+Route::put('/autogas/{id}', [AutogasPageController::class, 'update']);
+Route::delete('/autogas/{id}', [AutogasPageController::class, 'destroy']);

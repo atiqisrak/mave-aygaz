@@ -10,7 +10,7 @@ class CylinderGasController extends Controller
     public function index()
     {
         $cylinderGas = CylinderGas::all();
-        return response()->json($cylinderGas);
+        return response()->json($cylinderGas, 200);
     }
     public function indexView()
     {

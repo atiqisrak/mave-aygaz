@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
+
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\SliderController;
@@ -16,6 +20,20 @@ use App\Http\Controllers\CylinderGasController;
 use App\Http\Controllers\AutogasPageController;
 use App\Http\Controllers\BulkgasPageController;
 use App\Http\Controllers\HealthnSafetyController;
+
+// Auth routes
+// Roles
+Route::get('/roles', [RoleController::class, 'index']);
+Route::post('/roles', [RoleController::class, 'store']);
+Route::put('/roles/{role}', [RoleController::class, 'update']);
+Route::delete('/roles/{role}', [RoleController::class, 'destroy']);
+
+// Permissions
+Route::get('/permissions', [PermissionController::class, 'index']);
+Route::post('/permissions', [PermissionController::class, 'store']);
+Route::put('/permissions/{permission}', [PermissionController::class, 'update']);
+Route::delete('/permissions/{permission}', [PermissionController::class, 'destroy']);
+
 
 // Component routes
 // Navbar

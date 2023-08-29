@@ -12,11 +12,6 @@ class RoleController extends Controller
         return response()->json($roles);
     }
 
-    public function create()
-    {
-        return view('roles.create');
-    }
-
     public function store(Request $request)
     {
         try {
@@ -38,14 +33,19 @@ class RoleController extends Controller
         }
     }
 
-    public function show(Role $role)
+    public function assignPermissions(Request $request)
     {
-        return view('roles.show', compact('role'));
-    }
+        $request->validate([
+            'role_id' => 'required|exists:roles,id',
+            'permissions' => 'required|array',
+        ]);
 
-    public function edit(Role $role)
-    {
-        return view('roles.edit', compact('role'));
+        $role = Role::findOrFail($request->input('role_id'));
+        $permissions = $request->input('permissions');
+
+        $role->permissions()->sync($permissions);
+
+        return response()->json(['message' => 'Permissions assigned to role successfully'], 200);
     }
 
     public function update(Request $request, Role $role)
@@ -58,21 +58,16 @@ class RoleController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
+        return response()->json([
+            'message' => 'Role updated successfully.'
+        ]);
     }
 
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');
-    }
-
-    public function attachPermissions(Request $request, Role $role)
-    {
-        $permissions = $request->input('permissions', []);
-        
-        $role->permissions()->sync($permissions);
-
-        return redirect()->route('roles.index')->with('success', 'Permissions attached successfully.');
+        return response()->json([
+            'message' => 'Role deleted successfully.'
+        ]);
     }
 }

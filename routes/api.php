@@ -34,6 +34,8 @@ Route::post('/permissions', [PermissionController::class, 'store']);
 Route::put('/permissions/{permission}', [PermissionController::class, 'update']);
 Route::delete('/permissions/{permission}', [PermissionController::class, 'destroy']);
 
+// assign permission to role api
+Route::post('/assignpermissions', [RoleController::class, 'assignPermissions']);
 
 // Component routes
 // Navbar

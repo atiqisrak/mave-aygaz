@@ -15,6 +15,7 @@ use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\CylinderGasController;
 use App\Http\Controllers\AutogasPageController;
 use App\Http\Controllers\BulkgasPageController;
+use App\Http\Controllers\HealthnSafetyController;
 
 // Component routes
 // Navbar
@@ -96,3 +97,9 @@ Route::get('/bulkgas', [BulkgasPageController::class, 'index']);
 Route::post('/bulkgas', [BulkgasPageController::class, 'store']);
 Route::put('/bulkgas/{id}', [BulkgasPageController::class, 'update']);
 Route::delete('/bulkgas/{id}', [BulkgasPageController::class, 'destroy']);
+
+// Health and Safety
+Route::get('/healthnsafety', [HealthnSafetyController::class, 'index']);
+Route::post('/healthnsafety', [HealthnSafetyController::class, 'store']);
+Route::put('/healthnsafety/{id}', [HealthnSafetyController::class, 'update']);
+Route::delete('/healthnsafety/{id}', [HealthnSafetyController::class, 'destroy']);

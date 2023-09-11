@@ -20,8 +20,22 @@ use App\Http\Controllers\CylinderGasController;
 use App\Http\Controllers\AutogasPageController;
 use App\Http\Controllers\BulkgasPageController;
 use App\Http\Controllers\HealthnSafetyController;
+use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AdminRegisterController;
+use App\Http\Controllers\AdminLogoutController;
+use App\Http\Controllers\AdminProfileController;
 
 // Auth routes
+
+// Admin Profile
+Route::get('/admin/profile', [AdminProfileController::class, 'showProfile']);
+Route::put('/admin/profile', [AdminProfileController::class, 'updateProfile']);
+
+// Admin Auth
+Route::post('/admin/login', [AdminLoginController::class, 'login']);
+Route::post('/admin/register', [AdminRegisterController::class, 'register']);
+Route::post('/admin/logout', [AdminLogoutController::class, 'logout']);
+
 // Roles
 Route::get('/roles', [RoleController::class, 'index']);
 Route::post('/roles', [RoleController::class, 'store']);

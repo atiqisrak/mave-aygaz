@@ -98,6 +98,9 @@ Route::delete('/forms/{id}', [FormController::class, 'destroy']);
 
 // Media
 Route::get('/media', [MediaController::class, 'index']);
+// Route::post('/media', [MediaController::class, 'store']);
+Route::post('/media', 'MediaController@store')->name('media.upload');
+Route::delete('/media/{id}', [MediaController::class, 'destroy']);
 
 
 // --------------- Pages  -------------------
